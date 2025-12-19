@@ -5,10 +5,18 @@
 1. Clone 仓库到本地:
    ```bash
    git clone https://github.com/strayca7/xv6-riscv-ujs.git
+   git checkout main
+   ```
+   *实验将基于 main 分支进行开发。*
 2. 新建分支进行开发:
    ```bash
-   git checkout -b feat/your-feature-name
+   git checkout -b feat/your-feature-name origin/main
    ```
+   > 如果已经创建了分支，但忘记关联上游，可以使用以下命令补救：
+   >```bash
+   > # 将当前分支关联到远程的 main 分支
+   >git branch -u origin/main
+   >```
 3. 完成代码修改后，提交代码:
    ```bash
    git add .
