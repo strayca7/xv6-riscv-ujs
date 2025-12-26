@@ -1,4 +1,7 @@
 #ifndef __ASSEMBLER__
+#define __ASSEMBLER__
+
+#include "types.h"
 
 // which hart (core) is this?
 static inline uint64
