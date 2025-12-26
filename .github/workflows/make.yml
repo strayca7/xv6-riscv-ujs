@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu
+
+      - name: Build
+        run: make
+
+      - name: Run xv6 (make qemu)
+        run: |
+          # 运行 make qemu 20秒。
+          # 如果 QEMU 成功启动并保持运行，timeout 会在 20 秒后终止它并返回 124。
+          # 我们将 124 视为测试通过（因为意味着没有崩溃）。
+          # 如果是编译错误或其他运行时错误导致提前退出，则会返回其他错误码，导致 CI 失败。
+          timeout 20s make qemu || [ $? -eq 124 ]
