@@ -31,7 +31,9 @@ OBJS = \
   $K/virtio_disk.o \
   $K/ext.o \
   $K/shm.o \
-  $K/sem.o
+  $K/sem.o \
+  $K/room.o \
+  $K/sys_sem.o
 
 # riscv64-unknown-elf- or riscv64-linux-gnu-
 # perhaps in /opt/riscv/bin
@@ -156,6 +158,7 @@ UPROGS=\
 	$U/_bigfile\
 	$U/_lnstest\
 	$U/_library\
+	$U/_readingroom\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
