@@ -151,6 +151,7 @@ UPROGS=\
 	$U/_forphan\
 	$U/_dorphan\
 	$U/_cube\
+<<<<<<< HEAD
 	$U/_cowtest\
 	$U/_monitor\
 	$U/_mopen\
@@ -159,6 +160,8 @@ UPROGS=\
 	$U/_lnstest\
 	$U/_library\
 	$U/_readingroom\
+=======
+>>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)

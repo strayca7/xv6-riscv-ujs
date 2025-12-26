@@ -93,6 +93,7 @@ uint64 sys_uptime(void) {
 uint64 sys_cube(void) {
   int n;
   argint(0, &n);
+<<<<<<< HEAD
   // printf("%d\n", n * n * n);
   return n * n * n;
 }
@@ -158,3 +159,8 @@ uint64 sys_sem_v(void) {
   argint(0, &id);
   return sem_v(id);
 }
+=======
+  printf("%d\n", n * n * n);
+  return n * n * n;
+}
+>>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)

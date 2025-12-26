@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "../kernel/stat.h"
 #include "../kernel/types.h"
 #include "user.h"
@@ -27,5 +28,20 @@ int main(int argc, char *argv[]) {
     fprintf(2, "Usage: cube <number>\n");
     exit(1);
   }
+=======
+#include "kernel/stat.h"
+#include "kernel/types.h"
+#include "user/user.h"
+
+// Cube the first argument and print the result
+// 将第一个参数立方并打印结果
+int main(int argc, char *argv[]) {
+  if (argc < 2) {
+    fprintf(2, "Usage: cube <number>\n");
+    exit(1);
+  }
+  int n = atoi(argv[1]);
+  cube(n);
+>>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)
   exit(0);
 }
