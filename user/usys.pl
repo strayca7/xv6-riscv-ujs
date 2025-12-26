@@ -42,3 +42,10 @@ entry("getpid");
 entry("sbrk");
 entry("pause");
 entry("uptime");
+
+entry("sem_init");
+entry("sem_wait");
+entry("sem_post");
+entry("room_register");
+entry("room_unregister");
+entry("room_list");

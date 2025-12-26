@@ -24,6 +24,12 @@ int getpid(void);
 char* sys_sbrk(int,int);
 int pause(int);
 int uptime(void);
+int sem_init(int);
+int sem_wait(int);
+int sem_post(int);
+int room_register(char *);
+int room_unregister(int);
+int room_list(char *, int);
 
 // ulib.c
 int stat(const char*, struct stat*);

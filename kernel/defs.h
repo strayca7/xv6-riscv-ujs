@@ -1,3 +1,8 @@
+#include "types.h"
+
+typedef uint64 pte_t;
+typedef pte_t* pagetable_t;
+
 struct buf;
 struct context;
 struct file;
