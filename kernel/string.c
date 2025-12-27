@@ -1,5 +1,18 @@
 #include "types.h"
 
+/**
+ * Fills a block of memory with a specific value.
+ *
+ * This function sets the first n bytes of the memory area pointed to by dst
+ * to the specified value c (converted to an unsigned char).
+ *
+ * @param dst Pointer to the block of memory to fill.
+ * @param c   Value to be set. The value is passed as an int, but the function
+ *            fills the block of memory using the unsigned char conversion of this value.
+ * @param n   Number of bytes to be set to the value.
+ *
+ * @return A pointer to the memory area dst.
+ */
 void*
 memset(void *dst, int c, uint n)
 {
