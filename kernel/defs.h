@@ -1,3 +1,9 @@
+#ifndef DEFS_H
+#define DEFS_H
+
+#include "types.h"
+#include "riscv.h"
+
 struct buf;
 struct context;
 struct file;
@@ -59,6 +65,7 @@ void            ireclaim(int);
 void*           kalloc(void);
 void            kfree(void *);
 void            kinit(void);
+void            incref(uint64 pa);
 
 // log.c
 void            initlog(int, struct superblock*);
@@ -167,8 +174,10 @@ uint64          walkaddr(pagetable_t, uint64);
 int             copyout(pagetable_t, uint64, char *, uint64);
 int             copyin(pagetable_t, char *, uint64, uint64);
 int             copyinstr(pagetable_t, char *, uint64, uint64);
+int             uvmcow(pagetable_t, uint64);    // for copy-on-write
 int             ismapped(pagetable_t, uint64);
 uint64          vmfault(pagetable_t, uint64, int);
+extern uint64 pg_fault_cnt;  // counter for page faults
 
 // plic.c
 void            plicinit(void);
@@ -183,3 +192,5 @@ void            virtio_disk_intr(void);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
+
+#endif // DEFS_H

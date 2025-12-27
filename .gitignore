@@ -16,3 +16,8 @@ kernel/kernel
 user/usys.S
 .gdbinit
 TAGS
+
+.DS_Store
+.idea/
+
+TODO.md

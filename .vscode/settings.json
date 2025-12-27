@@ -1,0 +1,10 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "*.S": "c"
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cpptools"
+}
