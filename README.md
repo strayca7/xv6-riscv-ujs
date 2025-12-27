@@ -40,6 +40,8 @@ make qemu
 ```
 ### 退出 xv6
 在 QEMU 窗口中，按下 `Ctrl + A`，然后按 `X` 退出 xv6。
+## 运行测试程序
+各实验任务的测试程序和运行说明请参见 [`docs/`](https://github.com/strayca7/xv6-riscv-ujs/tree/main/docs)下的相应文档文件。
 ## 附录: 相关资源
 xv6 工具指南: https://pdos.csail.mit.edu/6.1810/2025/tools.html
 
