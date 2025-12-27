@@ -27,3 +27,5 @@
 #define SYS_room_register 25
 #define SYS_room_unregister 26
 #define SYS_room_list 27
+#define SYS_close 21
+#define SYS_cube 22

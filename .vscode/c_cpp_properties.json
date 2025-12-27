@@ -1,0 +1,30 @@
+{
+    "configurations": [
+        {
+            "name": "xv6-riscv",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/kernel",
+                "${workspaceFolder}/user"
+            ],
+            "defines": [
+                "__riscv",
+                "__riscv_xlen=64"
+            ],
+            "compilerPath": "",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "${workspaceFolder}/kernel",
+                    "${workspaceFolder}/user"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}

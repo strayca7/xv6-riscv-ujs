@@ -49,3 +49,4 @@ entry("sem_post");
 entry("room_register");
 entry("room_unregister");
 entry("room_list");
+entry("cube");
