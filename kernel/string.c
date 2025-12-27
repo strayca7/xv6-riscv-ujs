@@ -40,6 +40,8 @@ memcmp(const void *v1, const void *v2, uint n)
   return 0;
 }
 
+// Only copy the physical data from src to dst.
+// Virtual pages will be allocated separately by mappages.
 void*
 memmove(void *dst, const void *src, uint n)
 {

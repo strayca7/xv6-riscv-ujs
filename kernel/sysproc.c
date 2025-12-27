@@ -96,3 +96,9 @@ uint64 sys_cube(void) {
   printf("%d\n", n * n * n);
   return n * n * n;
 }
+
+extern uint64 pg_fault_cnt;
+// get the number of page faults
+uint64 sys_getpgfault(void) {
+  return pg_fault_cnt;
+}

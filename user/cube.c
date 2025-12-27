@@ -1,6 +1,6 @@
-#include "kernel/stat.h"
-#include "kernel/types.h"
-#include "user/user.h"
+#include "../kernel/stat.h"
+#include "../kernel/types.h"
+#include "user.h"
 
 // Cube the first argument and print the result
 // 将第一个参数立方并打印结果

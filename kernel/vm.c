@@ -17,6 +17,8 @@ extern char etext[];  // kernel.ld sets this to end of kernel code.
 
 extern char trampoline[]; // trampoline.S
 
+uint64 pg_fault_cnt = 0;  // counter for page faults
+
 // Make a direct-map page table for the kernel.
 pagetable_t
 kvmmake(void)
@@ -137,6 +139,10 @@ walkaddr(pagetable_t pagetable, uint64 va)
   return pa;
 }
 
+// Record the physical address to virtual address mapping in pagetable.
+// Physical copy will be done separately by memmove.
+//
+// 
 // Create PTEs for virtual addresses starting at va that refer to
 // physical addresses starting at pa.
 // va and size MUST be page-aligned.
@@ -299,7 +305,7 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
   pte_t *pte;
   uint64 pa, i;
   uint flags;
-  char *mem;
+  // char *mem; // COW removed
 
   for(i = 0; i < sz; i += PGSIZE){
     if((pte = walk(old, i, 0)) == 0)
@@ -308,13 +314,24 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
       continue;   // physical page hasn't been allocated
     pa = PTE2PA(*pte);
     flags = PTE_FLAGS(*pte);
-    if((mem = kalloc()) == 0)
-      goto err;
-    memmove(mem, (char*)pa, PGSIZE);
-    if(mappages(new, i, PGSIZE, (uint64)mem, flags) != 0){
-      kfree(mem);
+
+    if (flags & PTE_W) {
+      flags = (flags & ~PTE_W) | PTE_C;
+      *pte = PA2PTE(pa) | flags;
+    }
+
+    // if((mem = kalloc()) == 0)
+    //   goto err;
+    // memmove(mem, (char*)pa, PGSIZE);
+    // if(mappages(new, i, PGSIZE, (uint64)mem, flags) != 0){
+    //   kfree(mem);
+    //   goto err;
+    // }
+
+    if (mappages(new, i, PGSIZE, pa, flags) != 0) {
       goto err;
     }
+    incref(pa); // increase reference count for COW
   }
   return 0;
 
@@ -359,8 +376,26 @@ copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
 
     pte = walk(pagetable, va0, 0);
     // forbid copyout over read-only user text pages.
-    if((*pte & PTE_W) == 0)
-      return -1;
+    if ((*pte & PTE_W) == 0){
+      // handle copy-on-write
+      if (*pte & PTE_C) {
+        uint64 pa = PTE2PA(*pte);
+        char *mem = kalloc();
+        if (mem == 0)
+          return -1;
+
+        memmove(mem, (char *)pa, PGSIZE);
+
+        uint flags = PTE_FLAGS(*pte);
+        flags = (flags & ~PTE_C) | PTE_W;
+        *pte = PA2PTE(mem) | flags;
+        // old pa reference count decrease 1
+        kfree((void *)pa);
+        pa0 = (uint64)mem;
+      } else {
+        return -1;
+      }
+    }
       
     n = PGSIZE - (dstva - va0);
     if(n > len)
@@ -482,5 +517,46 @@ ismapped(pagetable_t pagetable, uint64 va)
   if (*pte & PTE_V){
     return 1;
   }
+  return 0;
+}
+
+// Handle copy-on-write page fault.
+// returns 0 on success, -1 on failure.
+// When child(or parent) process try to write a COW page,
+// a page fault will be triggered, Store Page Fault(scause = 15),
+// this function will be called to allocate a new page
+// and copy the content from the old page.
+int
+uvmcow(pagetable_t pagetable, uint64 va)
+{
+  pte_t *pte;
+  uint64 pa;
+  char *mem;
+  uint flags;
+
+  va = PGROUNDDOWN(va);
+  if (va >= MAXVA) return -1;
+
+  // find the PTE
+  pte = walk(pagetable, va, 0);
+  if (pte == 0) return -1;
+  if ((*pte & PTE_V) == 0) return -1;
+  if ((*pte & PTE_U) == 0) return -1;
+
+  if (*pte & PTE_W) return 0;
+
+  if (!(*pte & PTE_C)) return -1; // not a COW page
+
+  pa = PTE2PA(*pte);
+  if ((mem = kalloc()) == 0) return -1;
+  memmove(mem, (char *)pa, PGSIZE);
+
+  flags = PTE_FLAGS(*pte);
+  flags = (flags & ~PTE_C) | PTE_W;
+  *pte = PA2PTE(mem) | flags;
+
+  // old pa reference count decrease 1
+  kfree((void *)pa);
+
   return 0;
 }
