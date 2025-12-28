@@ -7,7 +7,7 @@ make qemu
 ```
 运行 cube 测试程序：
 ```bash
-./cube 3
+cube 3
 ```
 输出结果：
 ```
