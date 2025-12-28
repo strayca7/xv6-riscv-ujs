@@ -33,6 +33,12 @@ int cube(int);
 int getpgfault(void);
 int monitor(int);
 int symlink(const char *, const char *);
+void *shm_open(int);
+int shm_close(int);
+int sem_create(int, int);
+int sem_free(int);
+int sem_p(int);
+int sem_v(int);
 
 // ulib.c
 int stat(const char *, struct stat *);
@@ -48,6 +54,16 @@ int memcmp(const void *, const void *, uint);
 void *memcpy(void *, const void *, uint);
 char *sbrk(int);
 char *sbrklazy(int);
+
+// mutex.c
+struct mutex {
+  uint locked;
+};
+void acquire(struct mutex *);
+void release(struct mutex *);
+
+// printfl.c
+void printfl(const char *, ...);
 
 // printf.c
 void fprintf(int, const char *, ...) __attribute__((format(printf, 2, 3)));

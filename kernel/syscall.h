@@ -19,8 +19,20 @@
 #define SYS_unlink 18
 #define SYS_link   19
 #define SYS_mkdir  20
-#define SYS_close 21
+#define SYS_close  21
+
+// Task 1: cube syscall
 #define SYS_cube 22
+
+// Task 4: getpgfault syscall
 #define SYS_getpgfault 23
 #define SYS_monitor 30
 #define SYS_symlink 31
+
+// Task 5: shared memory and semaphore syscalls
+#define SYS_shm_open   24
+#define SYS_shm_close  25
+#define SYS_sem_create 26
+#define SYS_sem_free   27
+#define SYS_sem_p      28
+#define SYS_sem_v      29

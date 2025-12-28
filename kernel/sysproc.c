@@ -1,10 +1,10 @@
-#include "types.h"
-#include "riscv.h"
 #include "defs.h"
-#include "param.h"
 #include "memlayout.h"
-#include "spinlock.h"
+#include "param.h"
 #include "proc.h"
+#include "riscv.h"
+#include "spinlock.h"
+#include "types.h"
 #include "vm.h"
 
 uint64 sys_exit(void) {
@@ -111,4 +111,50 @@ uint64 sys_monitor(void) {
   argint(0, &enable);
   monitor_enabled = enable;
   return 0;
+}
+
+// Task 5
+// shared memory and semaphore syscalls
+extern uint64 shm_open(int);
+extern int shm_close(int);
+extern int sem_create(int, int);
+extern int sem_free(int);
+extern int sem_p(int);
+extern int sem_v(int);
+
+uint64 sys_shm_open(void) {
+  int id;
+  argint(0, &id);
+  return shm_open(id);
+}
+
+uint64 sys_shm_close(void) {
+  int id;
+  argint(0, &id);
+  return shm_close(id);
+}
+
+uint64 sys_sem_create(void) {
+  int id, v;
+  argint(0, &id);
+  argint(1, &v);
+  return sem_create(id, v);
+}
+
+uint64 sys_sem_free(void) {
+  int id;
+  argint(0, &id);
+  return sem_free(id);
+}
+
+uint64 sys_sem_p(void) {
+  int id;
+  argint(0, &id);
+  return sem_p(id);
+}
+
+uint64 sys_sem_v(void) {
+  int id;
+  argint(0, &id);
+  return sem_v(id);
 }
