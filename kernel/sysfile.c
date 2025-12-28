@@ -301,6 +301,10 @@ create(char *path, short type, short major, short minor)
   return 0;
 }
 
+extern struct fs_ops default_fs_ops;
+extern struct fs_ops ext_fs_ops;
+extern int monitor_enabled;
+
 uint64
 sys_open(void)
 {
@@ -333,6 +337,12 @@ sys_open(void)
       end_op();
       return -1;
     }
+  }
+
+  if (monitor_enabled) {
+    ip->ops = &ext_fs_ops;
+  } else {
+    ip->ops = &default_fs_ops;
   }
 
   if(ip->type == T_DEVICE && (ip->major < 0 || ip->major >= NDEV)){

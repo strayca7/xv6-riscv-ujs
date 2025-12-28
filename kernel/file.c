@@ -119,7 +119,16 @@ fileread(struct file *f, uint64 addr, int n)
     r = devsw[f->major].read(1, addr, n);
   } else if(f->type == FD_INODE){
     ilock(f->ip);
-    if((r = readi(f->ip, 1, addr, f->off, n)) > 0)
+
+    // vfs read
+    if (f->ip->ops && f->ip->ops->read) {
+      r = f->ip->ops->read(f->ip, 1, addr, f->off, n);
+    } else {
+      panic("fileread: no read operation defined");
+      // r = readi(f->ip, 1, addr, f->off, n); --- IGNORE ---
+    }
+
+    if(r > 0)
       f->off += r;
     iunlock(f->ip);
   } else {
@@ -159,7 +168,16 @@ filewrite(struct file *f, uint64 addr, int n)
 
       begin_op();
       ilock(f->ip);
-      if ((r = writei(f->ip, 1, addr + i, f->off, n1)) > 0)
+
+      // vfs write
+      if (f->ip->ops && f->ip->ops->write) {
+        r = f->ip->ops->write(f->ip, 1, addr + i, f->off, n1);
+      } else {
+        panic("filewrite: no write operation defined");
+        // r = writei(f->ip, 1, addr + i, f->off, n1); --- IGNORE ---
+      }
+
+      if (r > 0)
         f->off += r;
       iunlock(f->ip);
       end_op();

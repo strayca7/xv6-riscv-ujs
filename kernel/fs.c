@@ -718,3 +718,16 @@ nameiparent(char *path, char *name)
 {
   return namex(path, 1, name);
 }
+
+int default_read(struct inode *ip, int user_dst, uint64 dst, uint off, int n) {
+  return readi(ip, user_dst, dst, off, n);
+}
+
+int default_write(struct inode *ip, int user_src, uint64 src, uint off, int n) {
+  return writei(ip, user_src, src, off, n);
+}
+
+struct fs_ops default_fs_ops = {
+  .read = default_read,
+  .write = default_write,
+};

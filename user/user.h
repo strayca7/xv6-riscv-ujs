@@ -31,6 +31,7 @@ int pause(int);
 int uptime(void);
 int cube(int);
 int getpgfault(void);
+int monitor(int);
 
 // ulib.c
 int stat(const char *, struct stat *);
