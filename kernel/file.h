@@ -40,7 +40,7 @@ struct inode {
   short minor;
   short nlink;
   uint size;
-  uint addrs[NDIRECT+1];
+  uint addrs[NDIRECT+1+1];
 
   struct fs_ops *ops; // file system operations
 };

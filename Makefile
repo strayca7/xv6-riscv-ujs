@@ -151,6 +151,7 @@ UPROGS=\
 	$U/_monitor\
 	$U/_mopen\
 	$U/_mclose\
+	$U/_bigfile\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
