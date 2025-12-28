@@ -2,6 +2,7 @@
 #include "../kernel/fcntl.h"
 #include "user.h"
 
+// Monitor syscall only implements enabling/disabling monitoring when opening(reading, writing) files.
 int main() {
   int fd;
   

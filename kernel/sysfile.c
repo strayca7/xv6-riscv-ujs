@@ -339,6 +339,8 @@ sys_open(void)
     }
   }
 
+  // vfs ops assignment
+  // simulate a new file system type "ext" with monitoring capabilities
   if (monitor_enabled) {
     ip->ops = &ext_fs_ops;
   } else {
