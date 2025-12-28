@@ -4,9 +4,12 @@
 >创新：在内核态实现信号量和共享内存机制，在用户态实现带打印锁的多进程读者模拟程序
 
 编译启动：
-
+> xv6 Makefile 默认启动 CPU=3
 ```bash
-make qemu
+# 测试单核运行：
+make qemu CPU=1
+# 测试多核运行：
+make qemu CPU=4
 ```
 运行 library 测试程序：
 
