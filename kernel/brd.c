@@ -93,6 +93,7 @@ int rd_read(int user_dst, uint64 dst, uint off, int n) {
 int rd_write(int user_src, uint64 src, uint off, int n) {
   if (!rd_dev.loaded || off >= RD_SIZE)
     return -1;
+
   if (off + n > RD_SIZE)
     n = RD_SIZE - off;
 
@@ -109,8 +110,11 @@ int rd_write(int user_src, uint64 src, uint off, int n) {
     release(&rd_dev.lock);
 
     // out of memory
-    if (pa == 0)
+    if (pa == 0) {
+      if (total > 0)
+        return total;
       return -1;
+    }
 
     if (user_src) {
       if (copyin(myproc()->pagetable, (char *)pa + page_off, src + total, m) <
