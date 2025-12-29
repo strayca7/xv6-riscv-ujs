@@ -19,7 +19,6 @@
 #define SYS_unlink 18
 #define SYS_link   19
 #define SYS_mkdir  20
-<<<<<<< HEAD
 #define SYS_close  21
 
 // Task 1: cube syscall
@@ -37,7 +36,3 @@
 #define SYS_sem_free   27
 #define SYS_sem_p      28
 #define SYS_sem_v      29
-=======
-#define SYS_close 21
-#define SYS_cube 22
->>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)

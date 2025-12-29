@@ -43,7 +43,6 @@ entry("sbrk");
 entry("pause");
 entry("uptime");
 entry("cube");
-<<<<<<< HEAD
 entry("getpgfault");
 entry("monitor");
 entry("symlink");
@@ -53,5 +52,3 @@ entry("sem_create");
 entry("sem_free");
 entry("sem_p");
 entry("sem_v");
-=======
->>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)

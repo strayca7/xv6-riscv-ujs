@@ -87,7 +87,6 @@ extern uint64 sys_link(void);
 extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
 extern uint64 sys_cube(void);
-<<<<<<< HEAD
 extern uint64 sys_getpgfault(void);
 extern uint64 sys_monitor(void);
 extern uint64 sys_symlink(void);
@@ -97,8 +96,6 @@ extern uint64 sys_sem_create(void);
 extern uint64 sys_sem_free(void);
 extern uint64 sys_sem_p(void);
 extern uint64 sys_sem_v(void);
-=======
->>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -125,7 +122,6 @@ static uint64 (*syscalls[])(void) = {
     [SYS_mkdir] sys_mkdir,
     [SYS_close] sys_close,
     [SYS_cube] sys_cube,
-<<<<<<< HEAD
     [SYS_getpgfault] sys_getpgfault,
     [SYS_monitor] sys_monitor,
     [SYS_symlink] sys_symlink,
@@ -135,8 +131,6 @@ static uint64 (*syscalls[])(void) = {
     [SYS_sem_free] sys_sem_free,
     [SYS_sem_p] sys_sem_p,
     [SYS_sem_v] sys_sem_v,
-=======
->>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)
 };
 
 void syscall(void) {

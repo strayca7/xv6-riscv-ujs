@@ -30,7 +30,6 @@ char *sys_sbrk(int, int);
 int pause(int);
 int uptime(void);
 int cube(int);
-<<<<<<< HEAD
 int getpgfault(void);
 int monitor(int);
 int symlink(const char *, const char *);
@@ -40,8 +39,6 @@ int sem_create(int, int);
 int sem_free(int);
 int sem_p(int);
 int sem_v(int);
-=======
->>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)
 
 // ulib.c
 int stat(const char *, struct stat *);
@@ -57,7 +54,6 @@ int memcmp(const void *, const void *, uint);
 void *memcpy(void *, const void *, uint);
 char *sbrk(int);
 char *sbrklazy(int);
-<<<<<<< HEAD
 
 // mutex.c
 struct mutex {
@@ -68,8 +64,6 @@ void release(struct mutex *);
 
 // printfl.c
 void printfl(const char *, ...);
-=======
->>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)
 
 // printf.c
 void fprintf(int, const char *, ...) __attribute__((format(printf, 2, 3)));
@@ -78,8 +72,5 @@ void printf(const char *, ...) __attribute__((format(printf, 1, 2)));
 // umalloc.c
 void *malloc(uint);
 void free(void *);
-<<<<<<< HEAD
 
 #endif // _USER_H_
-=======
->>>>>>> 51ca9a2 (Merge pull request #1 from strayca7/feat/stray-cube)
