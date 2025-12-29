@@ -3,6 +3,7 @@
 #include "../kernel/types.h"
 #include "user.h"
 
+// New file system maximum file will support to 64MB+256KB+11KB
 int main() {
   char buf[512];
   int fd, i, sectors;
@@ -18,7 +19,7 @@ int main() {
     *(int *)buf = sectors;
     int cc = write(fd, buf, sizeof(buf));
     if (cc <= 0)
-      break;
+      break;    // disk full
     sectors++;
     if (sectors % 100 == 0)
       printf(".");

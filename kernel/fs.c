@@ -443,17 +443,27 @@ bmap(struct inode *ip, uint bn)
 
   if (bn < NDINDIRECT) {
     // Load double indirect block, allocating if necessary.
-    if ((addr = ip->addrs[NDIRECT+1]) == 0)
-      ip->addrs[NDIRECT+1] = addr = balloc(ip->dev);
+    if ((addr = ip->addrs[NDIRECT+1]) == 0) {
+      addr = balloc(ip->dev);
+      if (addr == 0)
+        return 0;
+      ip->addrs[NDIRECT+1] = addr;
+    }
+      // ip->addrs[NDIRECT+1] = addr = balloc(ip->dev);
     bp = bread(ip->dev, addr);
     a = (uint *)bp->data;
-    uint index_l1 = bn / NINDIRECT;
-    uint index_l0 = bn % NINDIRECT;
+    uint index_l1 = bn / NINDIRECT; // index in level 1 indirect block
+    uint index_l0 = bn % NINDIRECT; // index in level 0 direct block
 
     // Load level 1 indirect block, allocating if necessary.
     if ((addr = a[index_l1]) == 0) {
-      a[index_l1] = addr = balloc(ip->dev);
-      log_write(bp);
+      addr = balloc(ip->dev);
+      if (addr) {
+        a[index_l1] = addr;
+        log_write(bp);
+      }
+      // a[index_l1] = addr = balloc(ip->dev);
+      // log_write(bp);
     }
     brelse(bp);
 
@@ -462,8 +472,13 @@ bmap(struct inode *ip, uint bn)
 
     // Load data block, allocating if necessary.
     if ((addr = a[index_l0]) == 0) {
-      a[index_l0] = addr = balloc(ip->dev);
-      log_write(bp);
+      addr = balloc(ip->dev);
+      if (addr) {
+        a[index_l0] = addr;
+        log_write(bp);
+      }
+      // a[index_l0] = addr = balloc(ip->dev);
+      // log_write(bp);
     }
     brelse(bp);
 
@@ -482,6 +497,7 @@ itrunc(struct inode *ip)
   struct buf *bp;
   uint *a;
 
+  // truncate direct blocks
   for(i = 0; i < NDIRECT; i++){
     if(ip->addrs[i]){
       bfree(ip->dev, ip->addrs[i]);
@@ -489,6 +505,7 @@ itrunc(struct inode *ip)
     }
   }
 
+  // truncate indirect blocks
   if(ip->addrs[NDIRECT]){
     bp = bread(ip->dev, ip->addrs[NDIRECT]);
     a = (uint*)bp->data;
@@ -501,6 +518,7 @@ itrunc(struct inode *ip)
     ip->addrs[NDIRECT] = 0;
   }
 
+  // truncate double indirect blocks
   if (ip->addrs[NDIRECT+1]) {
     bp = bread(ip->dev, ip->addrs[NDIRECT+1]);
     a = (uint *)bp->data;
