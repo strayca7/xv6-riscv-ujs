@@ -313,8 +313,12 @@ uint64 sys_open(void) {
       }
       ilock(ip);
 
-      // Handle symbolic links
-      if (ip->type != T_SYMLINK || (omode & O_NOFOLLOW)) {
+      if (ip->type == T_SYMLINK && (omode & O_NOFOLLOW)) {
+        iunlockput(ip);
+        end_op();
+        return -1;
+      }
+      if (ip->type != T_SYMLINK) {
         break;
       }
 

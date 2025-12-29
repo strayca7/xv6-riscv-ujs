@@ -93,7 +93,7 @@ uint64 sys_uptime(void) {
 uint64 sys_cube(void) {
   int n;
   argint(0, &n);
-  printf("%d\n", n * n * n);
+  // printf("%d\n", n * n * n);
   return n * n * n;
 }
 
