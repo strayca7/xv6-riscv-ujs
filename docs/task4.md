@@ -11,7 +11,7 @@ make qemu
 ```bash
 cowtest
 ```
-输出结果：
+输出结果 (maybe)：
 ```
 $ cowtest
 simple: ok
