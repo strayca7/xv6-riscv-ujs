@@ -104,6 +104,7 @@ extern uint64 sys_close(void);
 extern uint64 sys_cube(void);
 extern uint64 sys_getpgfault(void);
 extern uint64 sys_monitor(void);
+extern uint64 sys_symlink(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -132,6 +133,7 @@ static uint64 (*syscalls[])(void) = {
     [SYS_cube] sys_cube,
     [SYS_getpgfault] sys_getpgfault,
     [SYS_monitor] sys_monitor,
+    [SYS_symlink] sys_symlink,
 };
 
 void

@@ -152,6 +152,7 @@ UPROGS=\
 	$U/_mopen\
 	$U/_mclose\
 	$U/_bigfile\
+	$U/_symlinktest\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)

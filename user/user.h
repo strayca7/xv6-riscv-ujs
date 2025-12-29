@@ -32,6 +32,7 @@ int uptime(void);
 int cube(int);
 int getpgfault(void);
 int monitor(int);
+int symlink(const char *, const char *);
 
 // ulib.c
 int stat(const char *, struct stat *);
