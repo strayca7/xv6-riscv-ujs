@@ -26,8 +26,6 @@
 
 // Task 4: getpgfault syscall
 #define SYS_getpgfault 23
-#define SYS_monitor 30
-#define SYS_symlink 31
 
 // Task 5: shared memory and semaphore syscalls
 #define SYS_shm_open   24
@@ -35,4 +33,10 @@
 #define SYS_sem_create 26
 #define SYS_sem_free   27
 #define SYS_sem_p      28
-#define SYS_sem_v      29
+#define SYS_sem_v 29
+
+
+// Task 2: monitor syscall and symlink syscall
+#define SYS_monitor 30
+#define SYS_symlink 31
+
