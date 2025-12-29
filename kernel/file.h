@@ -1,3 +1,10 @@
+#ifndef FILE_H
+#define FILE_H
+
+#include "types.h"
+#include "fs.h"
+#include "sleeplock.h"
+
 struct file {
   enum { FD_NONE, FD_PIPE, FD_INODE, FD_DEVICE } type;
   int ref; // reference count
@@ -13,6 +20,13 @@ struct file {
 #define minor(dev)  ((dev) & 0xFFFF)
 #define	mkdev(m,n)  ((uint)((m)<<16| (n)))
 
+// VFS abstract operations
+struct fs_ops {
+  int (*read)(struct inode*, int, uint64, uint, int);
+  int (*write)(struct inode *, int, uint64, uint, int);
+  // stat, open, close, etc. can be added here
+};
+
 // in-memory copy of an inode
 struct inode {
   uint dev;           // Device number
@@ -26,7 +40,9 @@ struct inode {
   short minor;
   short nlink;
   uint size;
-  uint addrs[NDIRECT+1];
+  uint addrs[NDIRECT+1+1];
+
+  struct fs_ops *ops; // file system operations
 };
 
 // map major device number to device functions.
@@ -38,3 +54,5 @@ struct devsw {
 extern struct devsw devsw[];
 
 #define CONSOLE 1
+
+#endif // FILE_H

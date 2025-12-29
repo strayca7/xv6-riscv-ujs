@@ -22,3 +22,5 @@
 #define SYS_close 21
 #define SYS_cube 22
 #define SYS_getpgfault 23
+#define SYS_monitor 30
+#define SYS_symlink 31

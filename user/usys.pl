@@ -44,3 +44,5 @@ entry("pause");
 entry("uptime");
 entry("cube");
 entry("getpgfault");
+entry("monitor");
+entry("symlink");

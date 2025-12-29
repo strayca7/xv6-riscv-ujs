@@ -93,12 +93,22 @@ uint64 sys_uptime(void) {
 uint64 sys_cube(void) {
   int n;
   argint(0, &n);
-  printf("%d\n", n * n * n);
+  // printf("%d\n", n * n * n);
   return n * n * n;
 }
 
+// Task 4
 extern uint64 pg_fault_cnt;
 // get the number of page faults
 uint64 sys_getpgfault(void) {
   return pg_fault_cnt;
+}
+
+// Task 2
+extern int monitor_enabled;
+uint64 sys_monitor(void) {
+  int enable;
+  argint(0, &enable);
+  monitor_enabled = enable;
+  return 0;
 }
