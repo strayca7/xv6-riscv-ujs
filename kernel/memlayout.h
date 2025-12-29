@@ -41,7 +41,11 @@
 // #define PHYSTOP (KERNBASE + 128*1024*1024)
 // 
 // Task for UJS: extend physical memory to 512MB
-#define PHYSTOP (KERNBASE + 512*1024*1024)
+#define PHYSTOP (KERNBASE + 512 * 1024 * 1024)
+// Task for UJS: define ramdisk area (the last 256MB of 512MB physical memory)
+// #define RAMDISK_SIZE (256 * 1024 * 1024)
+// #define RAMDISK_START (PHYSTOP - RAMDISK_SIZE)
+// #define RAMDISK_END (PHYSTOP)
 
 // map the trampoline page to the highest address,
 // in both user and kernel space.

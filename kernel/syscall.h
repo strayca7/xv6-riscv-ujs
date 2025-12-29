@@ -22,21 +22,24 @@
 #define SYS_close  21
 
 // Task 1: cube syscall
-#define SYS_cube 22
+#define SYS_cube        22
 
 // Task 4: getpgfault syscall
-#define SYS_getpgfault 23
+#define SYS_getpgfault  23
 
 // Task 5: shared memory and semaphore syscalls
-#define SYS_shm_open   24
-#define SYS_shm_close  25
-#define SYS_sem_create 26
-#define SYS_sem_free   27
-#define SYS_sem_p      28
-#define SYS_sem_v 29
+#define SYS_shm_open    24
+#define SYS_shm_close   25
+#define SYS_sem_create  26
+#define SYS_sem_free    27
+#define SYS_sem_p       28
+#define SYS_sem_v       29
 
 
 // Task 2: monitor syscall and symlink syscall
-#define SYS_monitor 30
-#define SYS_symlink 31
+#define SYS_monitor     30
+#define SYS_symlink     31
 
+// Task 4: ramdisk
+#define SYS_load_ramdisk      32
+#define SYS_unload_ramdisk    33
