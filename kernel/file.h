@@ -47,12 +47,18 @@ struct inode {
 
 // map major device number to device functions.
 struct devsw {
-  int (*read)(int, uint64, int);
-  int (*write)(int, uint64, int);
+  // origin
+  // int (*read)(int, uint64, int);
+  // int (*write)(int, uint64, int);
+
+  // modified for Ramdisk
+  int (*read)(int, uint64, uint,int);
+  int (*write)(int, uint64, uint,int);
 };
 
 extern struct devsw devsw[];
 
-#define CONSOLE 1
+#define CONSOLE   1
+#define RD_MAJOR  2 // Ramdisk major device number
 
 #endif // FILE_H

@@ -32,6 +32,7 @@ OBJS = \
   $K/ext.o \
   $K/shm.o \
   $K/sem.o \
+  $K/brd.o \
 
 # riscv64-unknown-elf- or riscv64-linux-gnu-
 # perhaps in /opt/riscv/bin
@@ -156,6 +157,9 @@ UPROGS=\
 	$U/_bigfile\
 	$U/_lnstest\
 	$U/_library\
+	$U/_rdtest\
+	$U/_ldrd\
+	$U/_unldrd\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)

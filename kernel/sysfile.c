@@ -373,6 +373,7 @@ uint64 sys_open(void) {
   if (ip->type == T_DEVICE) {
     f->type = FD_DEVICE;
     f->major = ip->major;
+    f->off = 0; // Initialize offset for device files
   } else {
     f->type = FD_INODE;
     f->off = 0;
